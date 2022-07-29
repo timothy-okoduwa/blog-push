@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Header from './Header';
+import Posts from './Posts/posts'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import PostBlogs from './PostBlogs';
+import About from './About';
+import Login from './Login';
+import { useState } from 'react';
 
 function App() {
+  const [isAuth, setIsAuth]=useState(localStorage.getItem("isAuth"))
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <BrowserRouter>
+  <Header isAuth={isAuth} setIsAuth={setIsAuth} />
+  <Routes>
+  <Route path='/' element={ <Posts isAuth={isAuth} setIsAuth={setIsAuth} /> }/>
+  <Route path='/PostBlog' element={<PostBlogs  isAuth={isAuth} setIsAuth={setIsAuth} /> }/>
+  <Route path='/About' element={<About isAuth={isAuth} setIsAuth={setIsAuth} /> }/>
+  <Route path='/Login' element={<Login isAuth={isAuth} setIsAuth={setIsAuth}/> }/>
+  
+  </Routes>
+  
+  </BrowserRouter>
+
+   
   );
 }
 
